@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Server;
+using Model.DependencyInjection;
+using Server.DependencyInjection;
 
 namespace DoNetCoreDemo
 {
@@ -37,6 +40,21 @@ namespace DoNetCoreDemo
             services.AddApplicationInsightsTelemetry(Configuration);
 
             services.AddMvc();
+
+            //
+            services.AddOptions();
+
+            //数据库连接帮助类
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+
+            //注册单例模式，整个应用程序周期内ITodoRepository接口的示例都是TodoRepository的一个单例实例
+            //services.AddSingleton<ITodoRepository, TodoRepository>();
+
+            //注册作用域型的类型，在特定作用域内ITodoRepository的示例是TodoRepository
+            //services.AddScoped<ITodoRepository, TodoRepository>();
+
+            //获取该ITodoRepository实例时，每次都要实例化一次TodoRepository类
+            services.AddTransient<ITodoRepository, TodoRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

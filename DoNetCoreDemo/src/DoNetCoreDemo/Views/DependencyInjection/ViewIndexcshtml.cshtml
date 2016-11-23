@@ -1,0 +1,8 @@
+﻿@using Server.DependencyInjection;
+@inject ITodoRepository Repository;
+@{
+    ViewData["title"] = "依赖注入";
+}
+<div>
+    <h1>@Repository.AllItems.Count()</h1>
+</div>

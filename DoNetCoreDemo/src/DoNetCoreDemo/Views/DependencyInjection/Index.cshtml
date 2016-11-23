@@ -1,0 +1,14 @@
+﻿@using Model.DependencyInjection;
+@model List<TodoItem>
+@{
+    ViewData["Title"] = "依赖注入";
+}
+
+<div>
+    @foreach(var item in Model)
+    {
+        <p>Id:@item.Id</p>
+        <p>Name:@item.Name</p>
+        < />
+    }
+</div>
